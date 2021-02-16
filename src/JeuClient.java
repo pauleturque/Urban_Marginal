@@ -1,9 +1,26 @@
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+
 /**
- * Gestion du jeu côté client
+ * Gestion du jeu cï¿½tï¿½ client
  *
  */
+
 public class JeuClient extends Jeu {
 	
+	public static void main(String[] args) {
+		try {
+			InetAddress adresseLocale = InetAddress.getLocalHost();
+			System.out.println(adresseLocale);
+			
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	/**
 	 * Controleur
 	 */
@@ -24,7 +41,7 @@ public class JeuClient extends Jeu {
 
 	/**
 	 * Envoi d'une information vers le serveur
-	 * fais appel une fois à l'envoi dans la classe Jeu
+	 * fais appel une fois ï¿½ l'envoi dans la classe Jeu
 	 */
 	public void envoi() {
 	}

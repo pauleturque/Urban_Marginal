@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
+import java.awt.Window;
+
 import javax.swing.UIManager;
 import java.awt.Window.Type;
 import javax.swing.JLabel;
@@ -13,11 +15,26 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.awt.event.ActionEvent;
 
 public class start_window extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtIP;
+	private static start_window frame;
+	
+	public static start_window getFrame() {
+		if(frame == null) {
+			frame = new start_window();
+		} 
+		return frame;
+	}
 
 	/**
 	 * Launch the application.
@@ -26,8 +43,8 @@ public class start_window extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					start_window frame = new start_window();
-					frame.setVisible(true);
+					getFrame().setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,6 +72,7 @@ public class start_window extends JFrame {
 		contentPane.add(lblStartServer);
 		
 		JButton btnStart = new JButton("START");
+		btnStart.addActionListener(new BtnStartActionListener());
 		btnStart.setBackground(new Color(51, 102, 255));
 		btnStart.setBounds(263, 24, 147, 29);
 		contentPane.add(btnStart);
@@ -71,17 +89,44 @@ public class start_window extends JFrame {
 		
 		txtIP = new JTextField();
 		txtIP.setBounds(101, 130, 130, 26);
+		txtIP.setText("127.0.0.1");
 		contentPane.add(txtIP);
 		txtIP.setColumns(10);
 		
 		JButton btnConnect = new JButton("Connect");
+		btnConnect.addActionListener(new BtnConnectActionListener());
 		btnConnect.setBackground(new Color(51, 102, 255));
 		btnConnect.setBounds(263, 130, 147, 29);
 		contentPane.add(btnConnect);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new BtnExitActionListener());
 		btnExit.setBackground(new Color(51, 102, 255));
 		btnExit.setBounds(263, 180, 147, 29);
 		contentPane.add(btnExit);
+		
+		
+	}
+	private class BtnStartActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Arene arene = new Arene();
+			arene.setVisible(true);
+			getFrame().setVisible(false);
+
+		}
+	}
+	private class BtnConnectActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			choice_window perso = new choice_window();
+			perso.setVisible(true);
+			getFrame().setVisible(false);
+		}
+	}
+	private class BtnExitActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+
+		
 	}
 }

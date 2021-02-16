@@ -15,11 +15,20 @@ import java.awt.EventQueue;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.Icon;
+import javax.swing.JButton;
 
 public class choice_window extends JFrame {
 
 	private JPanel contentPane;
 	private final JLabel lblNewLabel_2 = new JLabel("");
+	private static choice_window frame;
+	
+	public static choice_window getFrame() {
+		if(frame==null) {
+			frame = new choice_window();
+		}
+		return frame;
+	}
 
 	/**
 	 * Launch the application.
@@ -28,8 +37,7 @@ public class choice_window extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					choice_window frame = new choice_window();
-					frame.setVisible(true);
+					getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,7 +54,7 @@ public class choice_window extends JFrame {
 	}
 	
 	public void lblGo_clic() {
-		(new Arene()).setVisible(true);
+		getFrame().setVisible(true);
 		this.dispose();
 	}
 
@@ -82,6 +90,9 @@ public class choice_window extends JFrame {
 		lblGo.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				lblGo_clic();
+				Arene arene = new Arene();
+				arene.setVisible(true);
+				
 			}
 		});
 		
@@ -99,15 +110,22 @@ public class choice_window extends JFrame {
 		
 		JLabel lblFond = new JLabel("");
 		lblFond.setBounds(0, 0, 400, 275);
-		String chemin = "fonds/fondchoix.jpg";
+		String chemin = "media/fonds/fondchoix.jpg";
 		URL resource = getClass().getClassLoader().getResource(chemin);
 		lblFond.setIcon(new ImageIcon(resource));
 		contentPane.add(lblFond);
+		
+		JButton btnSuivant = new JButton("");
+		btnSuivant.setBounds(301, 150, 25, 35);
+		contentPane.add(btnSuivant);
+		
+		JButton btnPrecedent = new JButton("");
+		btnPrecedent.setBounds(65, 145, 31, 46);
+		contentPane.add(btnPrecedent);
 		
 		txtPseudo.requestFocus();
 		
 		
 		
 	}
-	
 }
