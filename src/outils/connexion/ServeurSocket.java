@@ -4,39 +4,32 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * Gestion d'un serveur : création d'une connexion de type serveur pour attendre les connexions de clients
- * @author emds
- *
- */
+
 public class ServeurSocket extends Thread {
 
-	/**
-	 * objet pour une connexion de type serveur (pour attendre des connexions de clients)
-	 */
+
+
 	private ServerSocket serverSocket ; 
-	/**
-	 * objet de lien avec une autre classe qui implémente AsyncResponse pour transférer les réponses
-	 */
-	private AsyncResponse delegate=null; 
+
+
+
+	private AsyncResponse delegate = null; 
 	
-	/**
-	 * Constructeur
-	 * @param delegate instance de la classe vers laquelle il faut transférer les réponses
-	 * @param port numéro port d'écoute du serveur
-	 */
+
 	public ServeurSocket(AsyncResponse delegate, int port) {
 		// création du socket serveur d'écoute des clients
 		try {
 			this.delegate = delegate;
 			this.serverSocket = new ServerSocket(port);
+			System.out.println("Un client s'est connecté ");
+			System.out.println("le serveur attend...");
 			// le démarrage de l'�coute ne peut se faire que si un objet delegate existe (pour récupérer la r�ponse)
 			if(delegate != null) {
 				this.start();		
 			}
 		} catch (IOException e) {
 			// problème grave qui ne devrait pas se produire : arrêt du programme
-			System.out.println("erreur grave création socket serveur : "+e);
+			System.out.println("erreur grave création socket serveur : " + e);
 			System.exit(0);
 		}
 	}
@@ -58,7 +51,7 @@ public class ServeurSocket extends Thread {
 				new Connection(socket, delegate);
 			} catch (IOException e) {
 				// problème grave qui ne devrait pas se produire : arrêt du programme
-				System.out.println("erreur sur l'objet serverSocket : "+e);
+				System.out.println("erreur sur l'objet serverSocket : " + e);
 				System.exit(0);
 			}
 		}
